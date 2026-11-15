@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arweave India debrief system</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  html,body{margin:0;background:#fff}
+  #canvas-container canvas{display:block;width:100% !important;height:auto !important}
+</style>
+</head>
+<body>
+<div id="canvas-container"></div>
+<script>
+        let params = {
+            seed: 12345,
+            dotPitch: 5,
+            dotSize: 3,
+            jitter: 0.6,
+            inkDensity: 0.85,
+            gridSpacing: 18,
+            pulseSpeed: 0,
+            colorPalette: ['#1a1615', '#ffffff', '#7a1f2b']
+        };
+
+        let defaultParams = JSON.parse(JSON.stringify(params));
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // STIPPLED SYSTEMS — every mark is a dot laid along a path
+        // ═══════════════════════════════════════════════════════════════════════
+
+        const W = 1600, H = 940;
+        let plate;          // the printed diagram (static layer)
+        let route = [];     // resampled pulse route
+        let pulseT = 0;
+        let ready = false;
+        let noiseOff = 0;
+
+        function setup() {
+            const c = createCanvas(W, H);
+            c.parent('canvas-container');
+            pixelDensity(1);
+            
+            const go = () => { ready = true; initializeSystem(); };
+            if (document.fonts && document.fonts.load) {
+                Promise.all([
+                    document.fonts.load('700 40px "Space Mono"'),
+                    document.fonts.load('400 26px "Space Mono"')
+                ]).then(go, go);
+            } else go();
+        }
+
+        function initializeSystem() {
+            if (!ready) return;
+            randomSeed(params.seed);
+            noiseSeed(params.seed);
+            noiseOff = random(1000);
+            plate = createGraphics(W, H);
+            plate.pixelDensity(1);
+            printPlate(plate);
+            buildRoute();
+            pulseT = 0;
+        }
+
+        function draw() {
+            if (!plate) return;
+            image(plate, 0, 0);
+            if (params.pulseSpeed <= 0 || route.length < 2) return;
+            pulseT = (pulseT + params.pulseSpeed) % route.length;
+            const ink = color(params.colorPalette[2]);
+            noStroke();
+            const trail = 70;
+            for (let k = trail; k >= 0; k -= 2) {
+                const i = floor((pulseT - k + route.length) % route.length);
+                const p = route[i];
+                const a = map(k, trail, 0, 0, 255);
+                ink.setAlpha(a);
+                fill(ink);
+                const s = map(k, trail, 0, params.dotSize * 0.8, params.dotSize * 2.4);
+                ellipse(p.x, p.y, s, s);
+            }
+        }
+
+        // ── core primitive: print a polyline as dots ─────────────────────────
+        function resample(pts, pitch, closed) {
+            const P = closed ? pts.concat([pts[0]]) : pts;
+            const out = [];
+            let carry = 0;
+            for (let i = 0; i < P.length - 1; i++) {
+                const a = P[i], b = P[i + 1];
+                const len = dist(a.x, a.y, b.x, b.y);
+                let t = carry;
+                while (t <= len) {
+                    out.push({ x: lerp(a.x, b.x, t / len), y: lerp(a.y, b.y, t / len) });
+                    t += pitch;
+                }
+                carry = t - len;
+            }
+            return out;
+        }
+
+        function dots(g, pts, opt = {}) {
+            const pitch = (opt.pitch || 1) * params.dotPitch;
+            const size = (opt.size || 1) * params.dotSize;
+            const sq = opt.square;
+            const samples = resample(pts, pitch, opt.closed);
+            g.noStroke();
+            g.fill(params.colorPalette[0]);
+            for (const p of samples) {
+                const n = noise(p.x * 0.004 + noiseOff, p.y * 0.004);
+                const s = size * (0.75 + n * 0.55);
+                const jx = (noise(p.x * 0.09, p.y * 0.09, noiseOff) - 0.5) * 2 * params.jitter;
+                const jy = (noise(p.y * 0.09, p.x * 0.09, noiseOff + 7) - 0.5) * 2 * params.jitter;
+                if (sq) g.rect(p.x + jx - s / 2, p.y + jy - s / 2, s, s);
+                else g.ellipse(p.x + jx, p.y + jy, s, s);
+            }
+        }
+
+        // ── shape helpers (all return point lists) ──────────────────────────
+        const P = (x, y) => ({ x, y });
+        function roundRect(x, y, w, h, r) {
+            const pts = [];
+            const arc = (cx, cy, a0) => { for (let i = 0; i <= 8; i++) { const a = a0 + (HALF_PI * i) / 8; pts.push(P(cx + cos(a) * r, cy + sin(a) * r)); } };
+            arc(x + w - r, y + r, -HALF_PI);
+            arc(x + w - r, y + h - r, 0);
+            arc(x + r, y + h - r, HALF_PI);
+            arc(x + r, y + r, PI);
+            return pts;
+        }
+        function circlePts(cx, cy, r, n = 40) {
+            const pts = [];
+            for (let i = 0; i < n; i++) { const a = (TWO_PI * i) / n; pts.push(P(cx + cos(a) * r, cy + sin(a) * r)); }
+            return pts;
+        }
+        function rectPts(x, y, w, h) { return [P(x, y), P(x + w, y), P(x + w, y + h), P(x, y + h)]; }
+
+        function arrowHead(g, x, y, dir) {
+            const s = 12;
+            const v = { r: [-1, 0], l: [1, 0], d: [0, -1], u: [0, 1] }[dir];
+            const px = -v[1], py = v[0];
+            dots(g, [P(x + v[0] * s + px * s * 0.8, y + v[1] * s + py * s * 0.8), P(x, y), P(x + v[0] * s - px * s * 0.8, y + v[1] * s - py * s * 0.8)], { pitch: 0.55, size: 1.05 });
+        }
+
+        function sparkle(g, x, y, r) {
+            const pts = [];
+            for (let i = 0; i < 8; i++) {
+                const a = (TWO_PI * i) / 8 - HALF_PI;
+                const rr = i % 2 === 0 ? r : r * 0.18;
+                pts.push(P(x + cos(a) * rr, y + sin(a) * rr));
+            }
+            dots(g, pts, { closed: true, pitch: 0.4, size: 0.9 });
+        }
+
+        // ── type, re-printed as a density field ─────────────────────────────
+        let typeQueue = [];
+        function typeset(str, x, y, size, opts = {}) {
+            typeQueue.push({ str, x, y, size, weight: opts.weight || 'bold', align: opts.align || 'left', spacing: opts.spacing || 0 });
+        }
+        function printType(g) {
+            const t = createGraphics(W, H);
+            t.pixelDensity(1);
+            t.background(255);
+            t.fill(0);
+            t.noStroke();
+            t.textFont('Space Mono');
+            for (const q of typeQueue) {
+                t.textSize(q.size);
+                t.textStyle(q.weight === 'bold' ? BOLD : NORMAL);
+                t.drawingContext.letterSpacing = q.spacing + 'px';
+                t.textAlign(q.align === 'center' ? CENTER : q.align === 'right' ? RIGHT : LEFT, CENTER);
+                t.text(q.str, q.x, q.y);
+            }
+            t.loadPixels();
+            const step = 2;
+            g.noStroke();
+            g.fill(params.colorPalette[0]);
+            for (let y = 0; y < H; y += step) {
+                for (let x = 0; x < W; x += step) {
+                    const i = 4 * (y * W + x);
+                    if (t.pixels[i] < 110 && random() < params.inkDensity) {
+                        const s = 1.6 + random(0.9);
+                        g.rect(x + random(-0.4, 0.4), y + random(-0.4, 0.4), s, s);
+                    }
+                }
+            }
+            t.remove();
+            typeQueue = [];
+        }
+
+        // ── window chrome used by every stage ───────────────────────────────
+        function windowBox(g, x, y, w, h, label, lx) {
+            dots(g, roundRect(x, y, w, h, 12), { closed: true });
+            dots(g, [P(x, y + 34), P(x + w, y + 34)]);
+            dots(g, rectPts(x + 16, y + 11, 11, 11), { closed: true, pitch: 0.5, size: 0.8 });
+            dots(g, rectPts(x + 44, y + 11, 11, 11), { closed: true, pitch: 0.5, size: 0.8 });
+            typeset('[x]', x + w - 56, y + 17, 22, { weight: 'normal' });
+            typeset(label, x + (lx || 36), y + 34 + (h - 34) / 2, 34, { spacing: 1 });
+        }
+
+        // ── the plate ────────────────────────────────────────────────────────
+        function printPlate(g) {
+            g.background(params.colorPalette[1]);
+
+            // graph-paper grid
+            const ink = color(params.colorPalette[0]);
+            ink.setAlpha(70);
+            g.noStroke(); g.fill(ink);
+            const gs = params.gridSpacing;
+            for (let y = 100 + gs / 2; y < 915; y += gs)
+                for (let x = 55; x < 1575; x += gs) g.ellipse(x, y, 1.6, 1.6);
+
+            // outer window
+            dots(g, roundRect(38, 26, 1524, 890, 30), { closed: true });
+            dots(g, [P(38, 92), P(1562, 92)]);
+            for (const cx of [84, 118, 152]) {
+                g.fill(params.colorPalette[0]);
+                for (let k = 0; k < 40; k++) { const a = random(TWO_PI), r = sqrt(random()) * 9; g.ellipse(cx + cos(a) * r, 60 + sin(a) * r, 2.6, 2.6); }
+            }
+            typeset('Arweave-India system we created.debrief ↗', 845, 60, 27, { weight: 'normal', align: 'center' });
+            typeset('X', 1525, 59, 30, { weight: 'normal', align: 'center' });
+
+            // you are here
+            dots(g, [P(135, 172), P(345, 172), P(380, 207), P(380, 270), P(345, 305), P(135, 305), P(100, 270), P(100, 207)], { closed: true });
+            typeset('You are', 240, 218, 34, { weight: 'normal', align: 'center' });
+            typeset('here', 240, 258, 34, { weight: 'normal', align: 'center' });
+            dots(g, [P(385, 238), P(493, 238)]); arrowHead(g, 497, 238, 'r');
+
+            // debrief
+            windowBox(g, 510, 160, 575, 160, 'DEBRIEF');
+            dots(g, circlePts(873, 245, 27), { closed: true, pitch: 0.7 });
+            dots(g, circlePts(941, 245, 27), { closed: true, pitch: 0.7 });
+            typeset('AI', 873, 246, 24, { weight: 'normal', align: 'center' });
+            typeset('AO', 941, 246, 24, { weight: 'normal', align: 'center' });
+            dots(g, rectPts(845, 278, 135, 12), { closed: true, pitch: 0.6, size: 0.9 });
+            dots(g, [P(980, 228), P(1028, 228), P(1052, 255), P(1052, 284), P(980, 284)], { closed: true, pitch: 0.6, size: 0.9 });
+            dots(g, [P(1028, 232), P(1046, 255), P(1028, 255)], { pitch: 0.55, size: 0.8 });
+            typeset('UIL', 1000, 244, 18, { align: 'center' });
+            for (const wx of [867, 995, 1030]) dots(g, circlePts(wx, 294, 8, 18), { closed: true, pitch: 0.5, size: 0.9 });
+
+            dots(g, [P(795, 160), P(795, 140), P(1130, 140), P(1130, 245), P(1165, 245)]); arrowHead(g, 1170, 245, 'r');
+
+            // side events
+            windowBox(g, 1182, 162, 358, 152, 'SIDE EVENTS', 38);
+            dots(g, [P(1330, 314), P(1330, 355), P(312, 355), P(312, 388)]); arrowHead(g, 312, 393, 'd');
+
+            // bootcamp
+            windowBox(g, 140, 405, 415, 145, 'BOOTCAMP');
+            dots(g, [P(422, 525), P(470, 465), P(520, 525)], { closed: true, pitch: 0.6, size: 0.9 });
+            dots(g, [P(470, 465), P(490, 495), P(505, 480)], { pitch: 0.6, size: 0.8 });
+            dots(g, [P(463, 474), P(463, 452), P(490, 462), P(463, 471)], { pitch: 0.5, size: 0.8 });
+            dots(g, [P(558, 487), P(624, 487)]); arrowHead(g, 629, 487, 'r');
+
+            // challenges
+            windowBox(g, 638, 405, 392, 145, 'CHALLENGES');
+            dots(g, [P(1033, 487), P(1102, 487)]); arrowHead(g, 1107, 487, 'r');
+
+            // hacker house
+            windowBox(g, 1118, 405, 410, 147, 'HACKER HOUSE', 32);
+            dots(g, rectPts(1437, 480, 46, 48), { closed: true, pitch: 0.5, size: 0.85 });
+            dots(g, [P(1437, 480), P(1460, 466), P(1483, 480)], { pitch: 0.5, size: 0.8 });
+            dots(g, rectPts(1483, 500, 18, 28), { closed: true, pitch: 0.5, size: 0.8 });
+            for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++) dots(g, rectPts(1443 + c * 13, 488 + r * 13, 6, 6), { closed: true, pitch: 0.35, size: 0.6 });
+            g.fill(params.colorPalette[0]); g.rect(1455, 512, 11, 16);
+
+            dots(g, [P(1300, 552), P(1300, 583), P(293, 583), P(293, 614)]); arrowHead(g, 293, 619, 'd');
+
+            // launchpad
+            windowBox(g, 108, 630, 455, 158, 'LAUNCHPAD');
+            dots(g, [P(503, 692), P(470, 704), P(437, 744), P(456, 764), P(495, 730)], { closed: true, pitch: 0.5, size: 0.85 });
+            dots(g, [P(447, 732), P(422, 740), P(432, 754)], { pitch: 0.5, size: 0.8 });
+            dots(g, [P(468, 754), P(462, 775), P(478, 768)], { pitch: 0.5, size: 0.8 });
+            dots(g, [P(424, 772), P(437, 758)], { pitch: 0.5, size: 0.8 });
+            g.fill(params.colorPalette[0]); g.rect(478, 707, 9, 9);
+
+            // lightbulb link
+            dots(g, [P(566, 710), P(628, 710), P(628, 664)]);
+            dots(g, circlePts(628, 634, 15, 26), { closed: true, pitch: 0.5, size: 0.85 });
+            dots(g, [P(621, 650), P(621, 660), P(635, 660), P(635, 650)], { pitch: 0.5, size: 0.8 });
+            for (const a of [-150, -115, -65, -30, 0, 180]) {
+                const r = radians(a);
+                dots(g, [P(628 + cos(r) * 22, 634 + sin(r) * 22), P(628 + cos(r) * 30, 634 + sin(r) * 30)], { pitch: 0.4, size: 0.75 });
+            }
+
+            // demo day
+            windowBox(g, 680, 628, 842, 162, 'DEMO DAY', 34);
+            for (const hx of [1110, 1142, 1188, 1236, 1290, 1328]) {
+                dots(g, rectPts(hx - 5, 735, 10, 10), { closed: true, pitch: 0.35, size: 0.7 });
+                dots(g, [P(hx - 16, 772), P(hx - 16, 758), P(hx + 16, 758), P(hx + 16, 772)], { pitch: 0.45, size: 0.7 });
+            }
+            dots(g, [P(1362, 778), P(1388, 722), P(1460, 720), P(1486, 778)], { pitch: 0.55, size: 0.85 });
+            for (let x = 990; x < 1505; x += 9) { g.fill(params.colorPalette[0]); g.ellipse(x, 778 + random(-1, 1), 1.8, 1.8); }
+
+            // sparkles
+            sparkle(g, 484, 152, 16);
+            sparkle(g, 118, 403, 16);
+            sparkle(g, 617, 403, 16);
+            sparkle(g, 1096, 403, 16);
+
+            // legend
+            typeset('(a) arweave india', 95, 870, 26, { weight: 'normal' });
+            const hex = []; for (let i = 0; i < 6; i++) { const a = PI / 6 + (TWO_PI * i) / 6; hex.push(P(452 + cos(a) * 13, 872 + sin(a) * 13)); }
+            dots(g, hex, { closed: true, pitch: 0.45, size: 0.8 });
+            dots(g, [P(441, 865), P(452, 872), P(463, 865)], { pitch: 0.45, size: 0.7 });
+            dots(g, [P(452, 872), P(452, 885)], { pitch: 0.45, size: 0.7 });
+            typeset('debrief', 478, 870, 26, { weight: 'normal' });
+            typeset('TIMELINE', 1540, 864, 32, { align: 'right', spacing: 3 });
+            dots(g, [P(1322, 893), P(1545, 893)], { pitch: 0.6, size: 1.2, square: true });
+
+            printType(g);
+        }
+
+        // ── the route the pulse travels ──────────────────────────────────────
+        function buildRoute() {
+            const path = [
+                P(385, 238), P(795, 238), P(795, 140), P(1130, 140), P(1130, 245), P(1330, 245),
+                P(1330, 355), P(312, 355), P(312, 487), P(1300, 487), P(1300, 583), P(293, 583),
+                P(293, 710), P(628, 710), P(628, 664), P(628, 710), P(1100, 710)
+            ];
+            route = resample(path, 2, false);
+        }
+
+
+</script>
+</body>
+</html>

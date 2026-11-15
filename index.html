@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>prasan singh</title>
+<meta name="description" content="Prasan Singh. Founder ecosystems, hacker houses and global events. 8 years, 200+ events, 16,000+ participants." />
+<link rel="canonical" href="https://prasansingh.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="prasan singh" />
+<meta property="og:title" content="Prasan Singh" />
+<meta property="og:description" content="i help protocols and foundations turn scattered builders into funded teams. 8 years, 200+ events, 5 hacker houses." />
+<meta property="og:url" content="https://prasansingh.com/" />
+<meta property="og:image" content="https://prasansingh.com/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@prasansinghh" />
+<meta name="twitter:creator" content="@prasansinghh" />
+<meta name="twitter:title" content="Prasan Singh" />
+<meta name="twitter:description" content="i help protocols and foundations turn scattered builders into funded teams." />
+<meta name="twitter:image" content="https://prasansingh.com/og.png" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237a1f2b'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' text-anchor='middle' fill='%23ffffff'%3Ep%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#ffffff;
+    --ink:#1a1615;
+    --text:#4a4442;
+    --muted:#8a817c;
+    --line:#ebe7e3;
+    --accent:#7a1f2b;
+    --accent-soft:#d9b9bd;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:18px;line-height:1.6;
+    text-wrap:pretty;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:var(--bg)}
+  main{max-width:640px;margin:0 auto;padding:clamp(64px,11vw,120px) 24px clamp(80px,12vw,136px)}
+
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft);transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  h1{margin:0;font-weight:500;font-size:30px;line-height:1.15;letter-spacing:-.015em;color:var(--ink)}
+  .links{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:12px;font-size:16px}
+
+  .hi{margin:40px 0 0;color:var(--ink)}
+  ul{margin:16px 0 0;padding-left:20px}
+  li{margin:0 0 12px;padding-left:4px}
+  li:last-child{margin-bottom:0}
+  li::marker{color:var(--muted)}
+  b{font-weight:500;color:var(--ink)}
+
+  h2{
+    margin:72px 0 0;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-weight:400;font-size:12px;letter-spacing:.1em;
+    text-transform:lowercase;color:var(--muted);
+  }
+  .rows{margin-top:16px;border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:116px minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .yr{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--muted);padding-top:4px;white-space:nowrap}
+  .row p{margin:0}
+  .yr .loc{display:block;margin-top:2px;letter-spacing:0}
+  @media(max-width:520px){.yr .loc{display:inline;margin:0 0 0 6px}}
+  .row .sub{display:block;font-size:16px;color:var(--text);line-height:1.5;margin-top:4px}
+
+  footer{margin-top:88px;padding-top:20px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+  footer i{color:var(--text)}
+
+  .tabs{display:flex;gap:16px;margin-top:40px;border-bottom:1px solid var(--line);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.03em}
+  .tabs a{color:var(--muted);border:0;padding:0 0 10px;margin-bottom:-1px;border-bottom:1px solid transparent}
+  .tabs a:hover{color:var(--ink)}
+  .tabs a.on{color:var(--accent);border-bottom-color:var(--accent)}
+  .view{display:none}
+  .view.on{display:block}
+  .lede{margin:40px 0 0;color:var(--ink)}
+  .back{display:inline-block;margin-top:24px;font-size:16px}
+
+  hr{border:0;border-top:1px solid var(--line);margin:56px 0 40px}
+  .brandlink{white-space:nowrap}
+  .logo{width:1.3em;height:1.3em;vertical-align:-.3em;margin-right:3px;color:var(--ink)}
+  .moretoggle{appearance:none;background:none;border:0;border-bottom:1px solid var(--accent-soft);padding:0;margin-top:16px;font:inherit;font-size:16px;color:var(--accent);cursor:pointer}
+  .moretoggle:hover{border-bottom-color:var(--accent)}
+  h2 a.h2link{color:inherit;border-bottom-color:var(--line)}
+  h2 a.h2link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .sys{margin:28px 0 0}
+  .sys iframe{display:block;width:100%;aspect-ratio:1600/940;border:1px solid var(--line);border-radius:6px}
+  .sys figcaption{margin-top:12px;font-size:16px;line-height:1.55;color:var(--text)}
+  .me{position:relative;cursor:default;outline:none}
+  .me-photo{position:absolute;left:100%;top:50%;margin-left:16px;width:280px;height:auto;aspect-ratio:1544/1024;object-fit:cover;border-radius:6px;box-shadow:0 18px 40px -18px rgba(26,22,21,.45);opacity:0;transform:translateY(-50%) rotate(-3deg) scale(.96);transition:opacity .2s,transform .2s;pointer-events:none;z-index:5}
+  .me:hover .me-photo,.me:focus .me-photo{opacity:1;transform:translateY(-50%) rotate(-3deg) scale(1)}
+  @media(max-width:700px){.me-photo{left:0;top:100%;margin:10px 0 0;transform:rotate(-2deg) scale(.96)}.me:hover .me-photo,.me:focus .me-photo{transform:rotate(-2deg) scale(1)}}
+  ul.quotes li{margin-bottom:20px}
+  ul.quotes q{display:block;margin-top:4px;font-style:italic;color:var(--ink)}
+  ul.quotes q::before{content:"\201C"}
+  ul.quotes q::after{content:"\201D"}
+  ul.quotes .ctx{display:block;margin-top:4px;font-size:15px;color:var(--muted)}
+  .gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px;margin-top:20px}
+  .gal figure{margin:0}
+  .gal img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;background:var(--line)}
+  .gal figcaption{margin-top:8px;font-size:15px;line-height:1.4;color:var(--text)}
+  .gal figcaption b{display:block}
+  .tabs{flex-wrap:wrap;row-gap:10px}
+
+  @media(max-width:520px){
+    .gal{grid-template-columns:1fr}
+    body{font-size:17px}
+    .row{grid-template-columns:1fr;gap:4px;padding:14px 0}
+    h2{margin-top:56px}
+    .hi,.lede{margin-top:32px}
+    .tabs{margin-top:32px}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <h1><span class="me" tabindex="0">Prasan Singh<img class="me-photo" src="img/me.webp" alt="Prasan, smiling, city lights behind" /></span></h1>
+  <div class="links">
+    <a href="mailto:hi@prasansingh.com">hi@prasansingh.com</a>
+    <a href="https://x.com/prasansinghh" target="_blank" rel="noreferrer">x</a>
+    <a href="https://www.linkedin.com/in/prasan-singh" target="_blank" rel="noreferrer">in</a>
+    <a href="https://t.me/prasansinghh" target="_blank" rel="noreferrer">telegram</a>
+    <a href="/prasan-singh-cv.pdf" target="_blank" rel="noopener">cv</a>
+  </div>
+
+  <nav class="tabs" aria-label="sections">
+    <a href="#home" data-view="home">home</a>
+    <a href="#work" data-view="work">work</a>
+    <a href="#hacker-houses" data-view="hacker-houses">hacker houses</a>
+    <a href="#community" data-view="community">community design</a>
+    <a href="#judging" data-view="judging">mentorship &amp; judging</a>
+    <a href="#gallery" data-view="gallery">gallery</a>
+  </nav>
+
+  <section class="view" id="view-home">
+  <p class="hi">hi! i'm prasan.<br />i help protocols and foundations turn scattered builders into funded teams.</p>
+  <ul>
+    <li>right now, i'm looking for my next role or venture. <a href="https://cal.com/prasan-singh/15min" target="_blank" rel="noreferrer">let's talk</a>.</li>
+    <li>i've spent the past 8 years building founder ecosystems and community programs: <b>200+ events</b>, <b>16,000+ participants</b>.</li>
+    <li>over the past 3 years, i built the <span class="brandlink"><svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4.414a7.586 7.586 0 1 0 0 15.173 7.586 7.586 0 0 0 0-15.173M3 12a9 9 0 1 1 18.001 0A9 9 0 0 1 3 12"/><path fill="currentColor" d="M13.268 14.71a1.5 1.5 0 0 1-.102-.28q-.044-.164-.073-.331a2.2 2.2 0 0 1-1.208.67 2.6 2.6 0 0 1-.574.061 2.8 2.8 0 0 1-.924-.145 2.2 2.2 0 0 1-.718-.405c-.2-.17-.36-.38-.472-.616a1.8 1.8 0 0 1-.17-.785q0-1.033.768-1.595c.516-.379 1.283-.59 2.302-.59h.737v-.365c0-.566-.43-1.02-.997-1.02-.342 0-.592.118-.75.267q-.234.216-.235.586H9.173q0-.417.181-.792c.125-.25.305-.513.538-.702a2.7 2.7 0 0 1 .864-.447q.513-.17 1.171-.17.592.001 1.1.146.514.145.888.429.375.284.586.718.211.43.212.998v2.802q0 .525.066.87.067.345.193.593v.102zm-.939-1.397c.236-.13.406-.304.502-.47v-1.085h-.656c-.5 0-1.154.053-1.383.577-.145.32-.112.723.151.972.393.363.972.235 1.386.006"/></svg><a href="https://x.com/arweaveeco" target="_blank" rel="noreferrer">Arweave</a></span> founder ecosystem and community in <a href="https://x.com/arweaveindia" target="_blank" rel="noreferrer">India</a> and across APAC.</li>
+    <li>i love giving back to the community, and mentoring and judging is what works best for me. i've done <a href="#judging"><b>60+ hackathons</b></a> around the globe, and some prominent projects have come out of them.</li>
+    <li>i love speaking and sharing what i care about, with <b>100+ sessions</b> around the globe and counting. <a href="https://cal.com/prasan-singh/15min" target="_blank" rel="noreferrer">invite me to your next one</a>.</li>
+    <li>sometimes i nerd out on security research: cyber kill chains, cyber extortion and AI in data centres.</li>
+  </ul>
+
+  <hr />
+
+  <h2 style="margin-top:0">side quests</h2>
+  <ul>
+    <li>i love hardware hacking. with my team, i built <a href="https://clickoor.ar.io/" target="_blank" rel="noreferrer">Clickoor</a>, a Raspberry Pi camera with a 3D-printed body and a wallet inside.</li>
+    <li>for fun, i go on treks, ride bikes and take <a href="#gallery">photos</a>.</li>
+    <li>as a hobby, i run <a href="https://sirf.website" target="_blank" rel="noreferrer">sirf.website</a>, a small production house i'm building on the side.</li>
+  </ul>
+
+  <h2><a class="h2link" href="https://substack.com/@prsnsngh" target="_blank" rel="noreferrer">intellectual reads ↗</a></h2>
+  <div class="rows">
+    <div class="row"><div class="yr">oct '26</div><p><a href="https://prasansingh.substack.com/p/etiquette-101-how-to-be-a-good-guest" target="_blank" rel="noreferrer">Etiquette 101: how to be a good guest at international events</a><span class="sub">Indian Devcon week edition. a practical guide to international conferences, without pretending there's one universal set of manners.</span></p></div>
+  </div>
+
+  <h2>how i work</h2>
+  <ul>
+    <li><b>no open calls.</b> every seat is chosen. a room's character is set by the last person you let in.</li>
+    <li><b>three months, minimum, after.</b> demo day is the midpoint, not the finish line.</li>
+    <li><b>small and curated over big and full.</b> thirty right people beat three hundred warm bodies.</li>
+    <li><b>everything is instrumented.</b> who came, who came back, who shipped, who raised.</li>
+  </ul>
+
+  <h2>elsewhere</h2>
+  <div class="links" style="margin-top:16px">
+    <a href="https://x.com/prasansinghh" target="_blank" rel="noreferrer">x</a>
+    <a href="https://www.linkedin.com/in/prasan-singh" target="_blank" rel="noreferrer">linkedin</a>
+    <a href="https://www.instagram.com/prasansingh_/" target="_blank" rel="noreferrer">instagram</a>
+    <a href="https://t.me/prasansinghh" target="_blank" rel="noreferrer">telegram</a>
+    <a href="https://cal.com/prasan-singh/15min" target="_blank" rel="noreferrer">book 15 min →</a>
+  </div>
+
+  </section>
+
+  <section class="view" id="view-work">
+  <div class="rows" style="margin-top:40px">
+    <div class="row"><div class="yr">2023-26</div><p><b>Arweave · India &amp; APAC</b>, incubation &amp; community lead<span class="sub">hacker houses, launchpad, 60+ events, a two-day flagship, run end to end.</span></p></div>
+    <div class="row"><div class="yr">2022-23</div><p><b>Zeeve</b>, community expert<span class="sub">designed ambassador programs with country-wide leads that grew to 2,000+ recurring users and 5,000+ developers in six months.</span></p></div>
+    <div class="row"><div class="yr">2021-22</div><p><b>EC-Council Institute</b>, research lead<span class="sub">research on AI in data centres, cyber kill chains and digital extortion. 10+ programs, 8 countries.</span></p></div>
+    <div class="row"><div class="yr">since 2020</div><p><b>global hackathons</b>, mentor, judge, organiser<span class="sub">60+ judged, 12 organised, 10,000+ participants hosted.</span></p></div>
+  </div>
+  </section>
+
+  <section class="view" id="view-hacker-houses">
+  <p class="lede">two-week residential cohorts, not 48-hour sprints. thirty builders a house, twenty devs and ten designers, curated hard, living together, shipping daily. dec '23 to sep '25.</p>
+  <ul>
+    <li><b>5 houses</b> + 1 stealth, drawn from <b>1,500+ applications</b>.</li>
+    <li><b>150+ builders</b> selected, 30 per cohort.</li>
+    <li><b>$10K scholarships + $10K prize pool</b> per house, ~$100K deployed to builders overall.</li>
+    <li>alumni have raised <b>$2.5M+</b>.</li>
+  </ul>
+
+  <h2>the houses</h2>
+  <div class="rows">
+    <div class="row"><div class="yr">HH1<span class="loc">(bengaluru)</span></div><p><a href="https://x.com/arweaveindia/status/1771120704555233743" target="_blank" rel="noreferrer">the first house</a><span class="sub">protocol infra. BetterIDEa, 0rbit and LiteSeed all came out of this room.</span></p></div>
+    <div class="row"><div class="yr">HH2<span class="loc">(mussoorie)</span></div><p><a href="https://x.com/arweaveindia/status/1826639493417631960" target="_blank" rel="noreferrer">dev-tools cohort</a><span class="sub">ARlink demoed here, then closed a $2.5M seed.</span></p></div>
+    <div class="row"><div class="yr">HH3<span class="loc">(bengaluru)</span></div><p><a href="https://x.com/arweaveindia/status/1880208112831086808" target="_blank" rel="noreferrer">testing what AO could do</a><span class="sub">four days to stress-test AO while it was still being built.</span></p></div>
+    <div class="row"><div class="yr">HH4<span class="loc">(bengaluru)</span></div><p><a href="https://x.com/arweaveindia/status/1915426565326029130" target="_blank" rel="noreferrer">mainnet apps</a><span class="sub">first apps for AO mainnet, shown live at Arweave Day India.</span></p></div>
+    <div class="row"><div class="yr">HH5<span class="loc">(singapore)</span></div><p><a href="https://x.com/aoTheComputer/status/1980603767822201003" target="_blank" rel="noreferrer">champions summit</a><span class="sub">forty builders, the house format taken out of India.</span></p></div>
+    <div class="row"><div class="yr">stealth<span class="loc">(pondicherry)</span></div><p><a href="https://x.com/arweaveindia/status/1968299806788604234" target="_blank" rel="noreferrer">stealth house</a><span class="sub">thirteen days, thirteen builders, ten projects.</span></p></div>
+  </div>
+
+  <h2>how a house runs</h2>
+  <div class="rows">
+    <div class="row"><div class="yr">01</div><p><b>curation</b><span class="sub">600+ applications down to 30 builders. no open seats.</span></p></div>
+    <div class="row"><div class="yr">02</div><p><b>the house</b><span class="sub">two weeks of co-living, free to just build.</span></p></div>
+    <div class="row"><div class="yr">03</div><p><b>launchpad</b><span class="sub">the strongest teams carry into three months of weekly check-ins, intros and debriefs. 40+ founders so far.</span></p></div>
+    <div class="row"><div class="yr">04</div><p><b>demo day</b><span class="sub">products, not demos, then roundtables with investors. the seed usually closes months after.</span></p></div>
+  </div>
+
+  <h2>what came out</h2>
+  <ul>
+    <li><b>ARlink</b>, permaweb deploys, $2.5M seed (HH2).</li>
+    <li><b>BetterIDEa</b>, the IDE for AO, featured on arweave.org (HH1).</li>
+    <li><b>0rbit</b>, decentralised oracle for AO (HH1).</li>
+    <li><b>LiteSeed</b>, DePIN for permaweb uploads (HH1).</li>
+    <li>20+ still building: aoVest, FundARs, Convergent, Sentio, Veritas, Hagrid, AOLearn, Ctrl Play, Anon.</li>
+  </ul>
+
+  <h2>what friends and founders say</h2>
+  <ul class="quotes">
+    <li><a href="https://www.youtube.com/watch?v=KqfXWwtIEco" target="_blank" rel="noreferrer">ankush</a>, BetterIDEa (HH1)<q>prasan was a mentor at my university hackathon and told me to just start building something and participate. so i did, and got selected into the first cohort.</q><span class="ctx">went from the house into the launchpad. BetterIDEa was later acquihired by Forward Research.</span></li>
+    <li><a href="https://www.youtube.com/watch?v=wG4HwKym1rg" target="_blank" rel="noreferrer">nischal</a>, ARlink (HH2)<q>i used to watch reels of people working from the mountains. at the hacker house, that's exactly what i got to do.</q><span class="ctx">pivoted to ARlink in the launchpad, demoed it to the ecosystem lead, then raised a $2.5M seed.</span></li>
+    <li><a href="https://www.youtube.com/watch?v=8aOd4oucqps" target="_blank" rel="noreferrer">parth</a>, builder<q>usually in hackathons you spend half the time learning what's going on. here the cookbook and the challenges got you up to speed really quickly.</q><span class="ctx">found Arweave India through the AO launch, came in through the challenges.</span></li>
+    <li><a href="https://www.youtube.com/watch?v=tWBbyVLKVX8" target="_blank" rel="noreferrer">manishi</a>, 0rbit<q>the push Arweave gave me was a life-changing point for me.</q><span class="ctx">joined Hacker House 2 and built a project in three days with Parth. 0rbit was acquired a few months later.</span></li>
+  </ul>
+  </section>
+
+  <section class="view" id="view-community">
+  <p class="lede">the work between the houses: a launchpad that carries teams after demo day, a two-day flagship, city debriefs that keep momentum warm, and the rituals off the clock.</p>
+  <ul>
+    <li><b>200+ events</b> with <b>16,000+ participants</b>, and more than half of everyone who registers actually shows up.</li>
+    <li><b>40+ founders</b> through the launchpad.</li>
+    <li><b>4,000+ builders</b> reached on the debrief tours.</li>
+    <li><b>349+</b> in the room at Arweave Day India.</li>
+    <li><b>100+ speaker sessions</b> on stages worldwide.</li>
+  </ul>
+
+  <h2>the launchpad</h2>
+  <p class="hi" style="margin-top:16px;color:var(--text)">the houses and the launchpad were never two programmes. they were one funnel: the strongest teams out of every house carried straight into three months of structured follow-through, because demo day is the halfway point.</p>
+  <div class="rows">
+    <div class="row"><div class="yr">intake</div><p><b>best of the houses</b><span class="sub">no open call. the teams that shipped hardest in the residency got the seat.</span></p></div>
+    <div class="row"><div class="yr">3 months</div><p><b>structured follow-up</b><span class="sub">weekly check-ins, intros, debriefs. the unglamorous part nobody runs.</span></p></div>
+    <div class="row"><div class="yr">outcome</div><p><b>products, not demos</b><span class="sub">projects harden into things people use. ARlink is the loudest example.</span></p></div>
+    <div class="row"><div class="yr">then</div><p><b>follow-on funding</b><span class="sub">the round closes months after the applause, because someone stayed in it.</span></p></div>
+  </div>
+
+  <figure class="sys">
+    <iframe src="debrief.html" title="The Arweave India system: debrief, side events, bootcamp, challenges, hacker house, launchpad, demo day" loading="lazy"></iframe>
+    <figcaption>the whole system, end to end. a builder first meets us at a city debrief or a side event, levels up through a bootcamp and open challenges, earns a seat in a hacker house, carries the project into the three-month launchpad, and walks into demo day with a product and a room of investors.</figcaption>
+  </figure>
+
+  <h2>conference</h2>
+  <div class="rows">
+    <div class="row"><div class="yr">apr '25</div><p><a href="https://x.com/arweaveindia/status/1916023194818859477" target="_blank" rel="noreferrer">Arweave Day India</a><span class="sub">"the permaweb is here". two days, Sam Williams keynote, a full main-stage program, 349+ in the room.</span></p></div>
+    <div class="row"><div class="yr">apr '25</div><p><a href="https://x.com/arweaveindia/status/1916176401000018041" target="_blank" rel="noreferrer">All Hands-On</a><span class="sub">India's first web3 vibe-code hackathon, run as a mini hackathon on day 1.</span></p></div>
+  </div>
+
+  <h2>meetups &amp; debriefs</h2>
+  <div class="rows">
+    <div class="row"><div class="yr">mar '25</div><p><a href="https://x.com/arweaveindia/status/1900198767690997842" target="_blank" rel="noreferrer">multi-city debriefs</a><span class="sub">country-wide city tours. 4,000+ builders reached.</span></p></div>
+    <div class="row"><div class="yr">'25</div><p><a href="https://x.com/prasansinghh/status/1958095122509218284" target="_blank" rel="noreferrer">Ahmedabad Buildstation</a><span class="sub">a city meetup, filmed: the room, the questions, the after.</span></p></div>
+    <div class="row"><div class="yr">dec '24</div><p><a href="https://x.com/arweaveindia/status/1869735063094775853" target="_blank" rel="noreferrer">The Winston Awards</a><span class="sub">yearly community awards. culture, kept on purpose.</span></p></div>
+  </div>
+
+  <h2>side quests</h2>
+  <ul>
+    <li><b>team hacks, mid-debrief.</b> every city stop hid a 45-minute hack with random pairs. nobody remembers the slides, they remember the hack.</li>
+    <li><b>Clickoor.</b> a team built the <a href="https://clickoor.ar.io/" target="_blank" rel="noreferrer">Clickoor camera</a>. there was also a RoboDog walking the venue.</li>
+    <li><b>Free Fire India qualifiers.</b> handled the broadcast production for the national qualifiers in april '26.</li>
+  </ul>
+
+  <h2>off the clock</h2>
+  <ul>
+    <li><b>touchgrass.</b> a full day out with the cohort, zero laptops. trails, games, real conversations.</li>
+    <li><b>sport &amp; sunlight.</b> football, frisbee, table tennis. the ritual that resets a burnt-out house.</li>
+  </ul>
+  <p style="margin-top:16px"><a href="#gallery">photos in the gallery →</a></p>
+  </section>
+
+  <section class="view" id="view-judging">
+  <p class="lede">mentoring, judging and organising hackathons since 2020. still volunteering, most recently on the jury at Rashtriya Raksha University in august.</p>
+  <ul>
+    <li><b>60+ hackathons</b> mentored and judged globally.</li>
+    <li><b>12 hackathons</b> organised, 7 online and 5 offline, hosting <b>10,000+ participants</b>, plus the event tours leading up to them.</li>
+  </ul>
+
+  <h2>organised</h2>
+  <div class="rows">
+    <div class="row"><div class="yr">apr '25</div><p><b>All Hands-On</b><span class="sub">India's first web3 vibe-code hackathon, day 1 of Arweave Day India.</span></p></div>
+    <div class="row"><div class="yr">2022-23</div><p><b>Trek The Hill</b><span class="sub">organiser. 15-day bootcamp plus a 48-hour international hackathon.</span></p></div>
+    <div class="row"><div class="yr">hackathon</div><p><a href="https://hackthisfall.tech/" target="_blank" rel="noreferrer">Hack This Fall</a><span class="sub">on the organising team.</span></p></div>
+    <div class="row"><div class="yr">hackathon</div><p><a href="https://hackthemountain.tech/" target="_blank" rel="noreferrer">Hack The Mountains</a><span class="sub">on the organising team.</span></p></div>
+  </div>
+
+  <h2>prominent ones</h2>
+  <div class="rows">
+    <div class="row"><div class="yr">aug '26</div><p><b>RRU jury · CODEARENA 3.0</b><span class="sub">jury at Rashtriya Raksha University's 48-hour internal Smart India Hackathon. recommended a few teams straight into incubation.</span></p></div>
+    <div class="row"><div class="yr">aug '26</div><p><b>FinSpark Hackathon</b><span class="sub">mentor &amp; evaluator for Bank of Maharashtra's fintech security hackathon. 100+ teams online, plus on-ground at RRU and CHARUSAT.</span></p></div>
+    <div class="row"><div class="yr">sep '21</div><p><b>DivHacks by Columbia University</b><span class="sub">guest speaker &amp; panelist.</span></p></div>
+  </div>
+  <div class="morelist" id="morelist" hidden>
+    <div class="rows" style="margin-top:0;border-top:0">
+    <div class="row"><div class="yr">oct '22</div><p><b>hackCBS 5.0</b><span class="sub">mentor &amp; judge. India's largest student-run hackathon, New Delhi.</span></p></div>
+    <div class="row"><div class="yr">mar '22</div><p><b>SD Hacks</b><span class="sub">judge.</span></p></div>
+    <div class="row"><div class="yr">feb '22</div><p><b>UofTHacks IX</b><span class="sub">mentor. University of Toronto, online.</span></p></div>
+    <div class="row"><div class="yr">dec '21</div><p><b>DeltaHacks</b><span class="sub">judge &amp; mentor. one of Canada's biggest hackathons, online.</span></p></div>
+    <div class="row"><div class="yr">oct '21</div><p><b>sunhacks by Arizona State University</b><span class="sub">judge. 30 projects judged.</span></p></div>
+    <div class="row"><div class="yr">stanford</div><p><b>TreeHacks by Stanford University</b><span class="sub">Stanford's flagship hackathon.</span></p></div>
+    <div class="row"><div class="yr">sep '21</div><p><b>ShellHacks</b><span class="sub">mentor. Florida International University. volunteering there ever since.</span></p></div>
+    <div class="row"><div class="yr">sep '21</div><p><b>Hackodisha 2021</b><span class="sub">mentor &amp; judge.</span></p></div>
+    <div class="row"><div class="yr">sep '21</div><p><b>WebWiz, NIT Rourkela</b><span class="sub">mentor &amp; speaker.</span></p></div>
+    <div class="row"><div class="yr">aug '21</div><p><b>Hack This Fall 2.0</b><span class="sub">mentor &amp; hackathon evangelist.</span></p></div>
+    <div class="row"><div class="yr">jul '21</div><p><b>Ignition Hacks</b><span class="sub">mentor. Canada, online.</span></p></div>
+    <div class="row"><div class="yr">jun '21</div><p><b>Hack The Mountains</b><span class="sub">mentor.</span></p></div>
+    </div>
+  </div>
+  <button type="button" class="moretoggle" aria-controls="morelist" aria-expanded="false">read more ↓</button>
+  </section>
+
+  <section class="view" id="view-gallery">
+  <p class="lede">rooms, stages, cohorts and the in-between, from the houses, the conferences and the city tours.</p>
+  <div class="gal">
+    <figure><img src="img/g-p1.webp" alt="The cohort" loading="lazy" /><figcaption><b>The cohort</b>hacker house</figcaption></figure>
+    <figure><img src="img/g-p2.webp" alt="Cloud builds" loading="lazy" /><figcaption><b>Cloud builds</b>hacker house · laptops open, open sky</figcaption></figure>
+    <figure><img src="img/g-p3.webp" alt="Demo day" loading="lazy" /><figcaption><b>Demo day</b>hacker house · the demos</figcaption></figure>
+    <figure><img src="img/g-p4.webp" alt="Open classrooms" loading="lazy" /><figcaption><b>Open classrooms</b>stealth house</figcaption></figure>
+    <figure><img src="img/g-p5.webp" alt="The keynote" loading="lazy" /><figcaption><b>The keynote</b>Arweave Day India · Sam Williams</figcaption></figure>
+    <figure><img src="img/g-p6.webp" alt="The room" loading="lazy" /><figcaption><b>The room</b>Arweave debriefs · 149+ in the seats</figcaption></figure>
+    <figure><img src="img/g-p7.webp" alt="Why we built Arweave India" loading="lazy" /><figcaption><b>Why we built Arweave India</b>bringing it all together</figcaption></figure>
+    <figure><img src="img/g-p8.webp" alt="Evening briefs" loading="lazy" /><figcaption><b>Evening briefs</b>round table · coffee, questions</figcaption></figure>
+    <figure><img src="img/g-p9.webp" alt="Touch grass" loading="lazy" /><figcaption><b>Touch grass</b>trek · zero laptops</figcaption></figure>
+    <figure><img src="img/g-p10.webp" alt="The full house" loading="lazy" /><figcaption><b>The full house</b>hacker house · everyone, one frame</figcaption></figure>
+    <figure><img src="img/g-p11.webp" alt="Working the problem" loading="lazy" /><figcaption><b>Working the problem</b>hacker house · whiteboard up</figcaption></figure>
+    <figure><img src="img/g-p12.webp" alt="Full auditorium" loading="lazy" /><figcaption><b>Full auditorium</b>keynote · the room, from the front</figcaption></figure>
+    <figure><img src="img/g-p13.webp" alt="Winston, desk duty" loading="lazy" /><figcaption><b>Winston, desk duty</b>the mascot, and a polaroid</figcaption></figure>
+    <figure><img src="img/g-p14.webp" alt="Registration desk" loading="lazy" /><figcaption><b>Registration desk</b>flagship · doors open</figcaption></figure>
+    <figure><img src="img/g-p15.webp" alt="On stage" loading="lazy" /><figcaption><b>On stage</b>panel</figcaption></figure>
+    <figure><img src="img/g-p16.webp" alt="Between cities" loading="lazy" /><figcaption><b>Between cities</b>the tour · street food and flags</figcaption></figure>
+    <figure><img src="img/g-p17.webp" alt="Everyone, from above" loading="lazy" /><figcaption><b>Everyone, from above</b>flagship · the whole lawn</figcaption></figure>
+    <figure><img src="img/g-p18.webp" alt="Winston Awards" loading="lazy" /><figcaption><b>Winston Awards</b>community · culture, on purpose</figcaption></figure>
+    <figure><img src="img/g-p19.webp" alt="Singapore, after dark" loading="lazy" /><figcaption><b>Singapore, after dark</b>Champions Summit · off the clock</figcaption></figure>
+    <figure><img src="img/g-p20.webp" alt="Cheers" loading="lazy" /><figcaption><b>Cheers</b>Arweave Day · after the applause</figcaption></figure>
+    <figure><img src="img/g-p21.webp" alt="The long table" loading="lazy" /><figcaption><b>The long table</b>cohort dinner · everybody, one table</figcaption></figure>
+  </div>
+
+  <h2>videos &amp; recaps</h2>
+  <ul>
+    <li><a href="https://www.youtube.com/watch?v=02JPvXZPgcs" target="_blank" rel="noreferrer">ETH Mumbai side event recap</a></li>
+    <li><a href="https://www.youtube.com/watch?v=oTU1EXyvzoc" target="_blank" rel="noreferrer">hacker house 2</a></li>
+    <li><a href="https://www.youtube.com/watch?v=gfkdi8VCLrc" target="_blank" rel="noreferrer">beachside podcast</a></li>
+    <li><a href="https://www.youtube.com/watch?v=uLwbKvI_wiE" target="_blank" rel="noreferrer">demo day 2024</a></li>
+  </ul>
+  </section>
+
+  <footer>building an ecosystem, a residency or a room worth being in? <a href="https://cal.com/prasan-singh/15min" target="_blank" rel="noreferrer">let's talk</a>. <i>ad astra per aspera</i>. p ✦</footer>
+  <a class="back" id="backhome" href="#home">← back home</a>
+
+</main>
+<script>
+(function(){
+  var views=['home','work','hacker-houses','community','judging','gallery'];
+  function show(){
+    var h=(location.hash||'').slice(1); if(views.indexOf(h)<0) h='home';
+    views.forEach(function(v){document.getElementById('view-'+v).classList.toggle('on',v===h)});
+    document.querySelectorAll('.tabs a').forEach(function(a){a.classList.toggle('on',a.dataset.view===h)});
+    document.getElementById('backhome').hidden=(h==='home');
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',show); show();
+})();
+</script>
+<script>
+document.querySelectorAll('.moretoggle').forEach(function(b){
+  var list=document.getElementById(b.getAttribute('aria-controls'));
+  b.addEventListener('click',function(){
+    var open=list.hidden;
+    list.hidden=!open;
+    b.setAttribute('aria-expanded',String(open));
+    b.textContent=open?'view less ↑':'read more ↓';
+    if(!open) list.previousElementSibling.scrollIntoView({block:'nearest'});
+  });
+});
+</script>
+</body>
+</html>
