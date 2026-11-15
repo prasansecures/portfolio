@@ -13,7 +13,7 @@ Static personal site for Prasan Singh. No build step, no framework. Deploy as-is
 | `prasan-singh-cv.pdf` | CV. The top "cv" link opens it in a new tab. |
 | `robots.txt`, `sitemap.xml` | Basic SEO. |
 
-External loads: Google Fonts (Newsreader, JetBrains Mono, Space Mono) and p5.js from cdnjs (only in `debrief.html`).
+Fonts: Newsreader and JetBrains Mono are self-hosted in `fonts/` (copied from Google Fonts, SIL OFL) and declared inline in `index.html`. External loads are only in `debrief.html`: Google Fonts (Space Mono) and p5.js from cdnjs.
 
 ## Task
 
